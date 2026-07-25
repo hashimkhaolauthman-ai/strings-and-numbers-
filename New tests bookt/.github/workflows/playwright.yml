@@ -10,10 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: New tests bookt
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -23,11 +19,17 @@ jobs:
         with:
           node-version: 18
 
+      - name: Change to project directory
+        run: cd "New tests bookt"
+
       - name: Install dependencies
         run: npm install
+        working-directory: "New tests bookt"
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+        working-directory: "New tests bookt"
 
       - name: Run Playwright tests
         run: npx playwright test --project=chromium
+        working-directory: "New tests bookt"
