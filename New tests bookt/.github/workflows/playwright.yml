@@ -1,10 +1,12 @@
 name: Playwright Tests
 
-on:
+'on':
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   test:
@@ -19,17 +21,23 @@ jobs:
         with:
           node-version: 18
 
-      - name: Change to project directory
-        run: cd "New tests bookt"
-
       - name: Install dependencies
-        run: npm install
-        working-directory: "New tests bookt"
+        run: |
+          cd "New tests bookt"
+          npm install
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-        working-directory: "New tests bookt"
+        run: |
+          cd "New tests bookt"
+          npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test --project=chromium
-        working-directory: "New tests bookt"
+        run: |
+          cd "New tests bookt"
+          npx playwright test --project=chromium
+
+      - name: Upload Playwright HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: New tests bookt/playwright-report
